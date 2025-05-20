@@ -27,6 +27,17 @@ class Movies(models.Model):
     poster_image=models.ImageField(upload_to="images",null=True,blank=True)
     description=models.CharField(max_length=200,null=True)
 
+    @property
+    def genre_names(self):
+        return self.genres.all()
+    
+    @property
+    def reviews(self):
+        return Reviews.objects.filter(movie=self)
+    @property
+    def avg_rating(self):
+        ratings=Reviews.objects.filter(movie=self).values_list("rating",flat=True)
+        return sum(ratings)/len(ratings) if ratings else 0
 
     def __str__(self):
         return self.name
