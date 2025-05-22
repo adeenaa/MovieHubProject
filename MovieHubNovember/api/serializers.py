@@ -33,4 +33,9 @@ class MovieSerializer(serializers.ModelSerializer):
         exclude=["genres"]
 
     reviews=ReviewSerializer(many=True,read_only=True)
-    
+
+class GenrereadSerializer(serializers.ModelSerializer):
+    genre=serializers.CharField(read_only=True)
+    class Meta:
+        model=Genres
+        fields=["genre"]

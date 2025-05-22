@@ -19,6 +19,8 @@ from rest_framework.routers import DefaultRouter
 from api import views as api_views
 from rest_framework.authtoken.views import ObtainAuthToken
 from rest_framework_simplejwt.views import TokenObtainPairView,TokenRefreshView
+from django.conf import settings
+from django.conf.urls.static import static
 
 router=DefaultRouter()
 router.register("api/register",api_views.UsersView,basename="users")
@@ -30,4 +32,4 @@ urlpatterns = [
     path("api/token/",ObtainAuthToken.as_view()),
     path("api/v1/token/",TokenObtainPairView.as_view()),
     path("api/v1/token/refresh/",TokenRefreshView.as_view())
-]+router.urls
+]+router.urls + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
